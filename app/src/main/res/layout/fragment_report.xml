@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/fragment_report_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/report_text_padding"
+        android:text="@string/sample_report_text"
+        android:textColor="@color/colorReportText"
+        android:textSize="@dimen/report_text_size"/>
+</FrameLayout>
