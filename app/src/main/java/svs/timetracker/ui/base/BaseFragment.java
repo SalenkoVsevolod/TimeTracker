@@ -49,4 +49,6 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     public void showToast(@StringRes int messageId) {
         mActivity.showToast(messageId);
     }
+
+
 }

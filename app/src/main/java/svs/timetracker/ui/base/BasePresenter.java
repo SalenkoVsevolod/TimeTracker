@@ -7,7 +7,7 @@ import java.lang.ref.WeakReference;
  */
 
 public abstract class BasePresenter<M, V> {
-    private M mModel;
+    protected M mModel;
     private WeakReference<V> mView;
 
     public void setModel(M model) {

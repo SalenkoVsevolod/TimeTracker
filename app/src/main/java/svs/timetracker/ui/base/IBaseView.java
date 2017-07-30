@@ -12,4 +12,6 @@ public interface IBaseView {
     void showToast(String message);
 
     void showToast(@StringRes int messageId);
+
+    String getString(@StringRes int stringRes);
 }

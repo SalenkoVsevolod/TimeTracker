@@ -2,4 +2,5 @@
 <resources>
     <dimen name="report_text_size">30sp</dimen>
     <dimen name="report_text_padding">16dp</dimen>
+    <dimen name="navigation_item_text_size">48sp</dimen>
 </resources>

@@ -1,0 +1,13 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/colorNavigationBackground"
+             android:padding="16dp"
+             tools:context="svs.timetracker.ui.navigation.BaseNavigationFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/navigation_items_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorReportText">#000000</color>
+    <color name="colorNavigationBackground">#646363</color>
+    <color name="colorNavigationText">#ffcc00</color>
 </resources>
