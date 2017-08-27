@@ -1,4 +1,4 @@
-package svs.timetracker.ui.navigation;
+package svs.timetracker.presentation.ui.navigation;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import svs.timetracker.R;
-import svs.timetracker.ui.base.BaseActivity;
-import svs.timetracker.ui.base.BaseFragment;
+import svs.timetracker.presentation.ui.base.BaseActivity;
+import svs.timetracker.presentation.ui.base.BaseFragment;
 
 
 public abstract class BaseNavigationActivity extends BaseActivity {

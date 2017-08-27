@@ -1,16 +1,10 @@
-package svs.timetracker.ui.report;
+package svs.timetracker.presentation.ui.report;
 
 import svs.timetracker.R;
-import svs.timetracker.ui.base.BasePresenter;
-
-/**
- * Created by Black on 29.07.2017.
- */
+import svs.timetracker.presentation.ui.base.BasePresenter;
 
 public class ReportPresenter extends BasePresenter<String, IReportView> {
     public ReportPresenter() {
-        setModel("Ya igral ves' den' i shobolil, ya ne rabotal, 8 chasow");
-        //TODO move it somewhere else
     }
 
     @Override
@@ -22,4 +16,12 @@ public class ReportPresenter extends BasePresenter<String, IReportView> {
         view().copyToClipBoard(mModel);
         view().showToast(R.string.report_copied_to_clipboard);
     }
+
+    public void onTextChanged(String text) {
+        if (mModel == null || !mModel.equals(text)) {
+            setModel(text);
+            view().displayReportText(mModel);
+        }
+    }
+
 }

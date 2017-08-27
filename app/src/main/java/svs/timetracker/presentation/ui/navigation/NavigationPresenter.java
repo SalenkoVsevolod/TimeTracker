@@ -1,10 +1,10 @@
-package svs.timetracker.ui.navigation;
+package svs.timetracker.presentation.ui.navigation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import svs.timetracker.R;
-import svs.timetracker.ui.base.BasePresenter;
+import svs.timetracker.presentation.ui.base.BasePresenter;
 
 
 public class NavigationPresenter extends BasePresenter<List<NavigationItem>, INavigationView> {

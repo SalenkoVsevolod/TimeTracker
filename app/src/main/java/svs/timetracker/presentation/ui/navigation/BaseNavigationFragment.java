@@ -1,4 +1,4 @@
-package svs.timetracker.ui.navigation;
+package svs.timetracker.presentation.ui.navigation;
 
 
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import svs.timetracker.R;
-import svs.timetracker.ui.base.BaseFragment;
+import svs.timetracker.presentation.ui.base.BaseFragment;
 
 public abstract class BaseNavigationFragment extends BaseFragment implements NavigationAdapter.OnNavigationItemClicked {
     @BindView(R.id.navigation_items_recycler) RecyclerView mNavigationRecycler;

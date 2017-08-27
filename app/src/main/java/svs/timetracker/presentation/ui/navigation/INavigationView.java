@@ -1,8 +1,8 @@
-package svs.timetracker.ui.navigation;
+package svs.timetracker.presentation.ui.navigation;
 
 import java.util.List;
 
-import svs.timetracker.ui.base.IBaseView;
+import svs.timetracker.presentation.ui.base.IBaseView;
 
 public interface INavigationView extends IBaseView{
     void openProjectsScreen();

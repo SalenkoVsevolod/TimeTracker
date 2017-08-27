@@ -1,4 +1,4 @@
-package svs.timetracker.ui.base;
+package svs.timetracker.presentation.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;

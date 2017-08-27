@@ -1,4 +1,4 @@
-package svs.timetracker.ui.base;
+package svs.timetracker.presentation.ui.base;
 
 import java.lang.ref.WeakReference;
 

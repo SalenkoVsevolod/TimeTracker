@@ -1,4 +1,4 @@
-package svs.timetracker.ui.navigation;
+package svs.timetracker.presentation.ui.navigation;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
