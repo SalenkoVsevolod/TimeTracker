@@ -3,25 +3,26 @@ package svs.timetracker.presentation.ui.report;
 import svs.timetracker.R;
 import svs.timetracker.presentation.ui.base.BasePresenter;
 
-public class ReportPresenter extends BasePresenter<String, IReportView> {
+public class ReportPresenter extends BasePresenter<IReportView> {
+    private String reportText;
+
     public ReportPresenter() {
     }
 
     @Override
-    protected void updateView() {
-        view().setReportText(mModel);
+    public void bindView(IReportView iReportView) {
+        super.bindView(iReportView);
+        view().setReportText(reportText);
     }
 
     public void onReportClick() {
-        view().copyToClipBoard(mModel);
+        view().copyToClipBoard(reportText);
         view().showToast(R.string.report_copied_to_clipboard);
     }
 
     public void onTextChanged(String text) {
-        if (mModel == null || !mModel.equals(text)) {
-            setModel(text);
-            view().displayReportText(mModel);
-        }
+        reportText = text;
+        view().displayReportText(reportText);
     }
 
 }

@@ -2,48 +2,23 @@ package svs.timetracker.presentation.ui.base;
 
 import java.lang.ref.WeakReference;
 
-/**
- * Created by Black on 29.07.2017.
- */
 
-public abstract class BasePresenter<M, V> {
-    protected M mModel;
-    private WeakReference<V> mView;
-
-    public void setModel(M model) {
-        resetState();
-        mModel = model;
-        if (setupIsDone()) {
-            updateView();
-        }
-    }
-
-    protected void resetState() {
-
-    }
-
-    protected boolean setupIsDone() {
-        return view() != null && mModel != null;
-    }
+public abstract class BasePresenter<V> {
+    private WeakReference<V> view;
 
     public void bindView(V v) {
-        mView = new WeakReference<>(v);
-        if (setupIsDone()) {
-            updateView();
-        }
+        view = new WeakReference<>(v);
     }
 
     public void unbindView() {
-        mView = null;
+        view = null;
     }
 
     protected V view() {
-        if (mView == null) {
+        if (view == null) {
             return null;
         } else {
-            return mView.get();
+            return view.get();
         }
     }
-
-    protected abstract void updateView();
 }

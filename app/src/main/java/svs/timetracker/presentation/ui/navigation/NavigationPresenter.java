@@ -7,13 +7,9 @@ import svs.timetracker.R;
 import svs.timetracker.presentation.ui.base.BasePresenter;
 
 
-public class NavigationPresenter extends BasePresenter<List<NavigationItem>, INavigationView> {
+public class NavigationPresenter extends BasePresenter<INavigationView> {
     private static final int PROJECTS = 0, SETTINGS = 1;
-
-    @Override
-    protected void updateView() {
-        view().setNavigationItems(mModel);
-    }
+    private List<NavigationItem> navigationItems;
 
     @Override
     public void bindView(INavigationView iNavigationView) {
@@ -21,7 +17,8 @@ public class NavigationPresenter extends BasePresenter<List<NavigationItem>, INa
         List<NavigationItem> items = new ArrayList<>();
         items.add(PROJECTS, new NavigationItem(view().getString(R.string.projects)));
         items.add(SETTINGS, new NavigationItem(view().getString(R.string.settings)));
-        setModel(items);
+        navigationItems = items;
+        view().setNavigationItems(navigationItems);
     }
 
     public void onNavigationItemClicked(int position) {

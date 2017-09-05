@@ -2,21 +2,17 @@ package svs.timetracker.core;
 
 import android.app.Application;
 
-/**
- * Created by Black on 29.07.2017.
- */
-
 public class TimeTrackerApplication extends Application implements AppBridge {
-    private SharedPreferencesHelper mSharedPreferencesHelper;
+    private SharedPreferencesHelper sharedPreferencesHelper;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mSharedPreferencesHelper = new SharedPreferencesHelper(this);
+        sharedPreferencesHelper = new SharedPreferencesHelper(this);
     }
 
     @Override
     public SharedPreferencesHelper getSharedPreferences() {
-        return mSharedPreferencesHelper;
+        return sharedPreferencesHelper;
     }
 }
