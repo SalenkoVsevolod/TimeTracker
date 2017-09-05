@@ -22,7 +22,7 @@ public class MainActivity extends BaseNavigationActivity {
         mTwoLinesReport.setCurrentDate(System.currentTimeMillis());
         mTwoLinesReport.setGreeting(new Greeting("Привет", "Марина", "))"));
         mTwoLinesReport.setSpentTime(new SpentTime(6, "часов"));
-        mTwoLinesReport.setSpendingTimeCause(new Project("на", "honcker"));
+        mTwoLinesReport.setSpendingTimeCause(new Project("honcker"));
     }
 
     @Override

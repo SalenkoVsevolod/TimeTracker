@@ -1,20 +1,23 @@
 package svs.timetracker.domain.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity
 public class Project extends SpendingTimeCause {
-    private String projectName;
-    private String to;
+    @PrimaryKey
+    private String name;
 
-    public Project(String to, String projectName) {
-        this.to = to;
-        setProjectName(projectName);
+    public Project(String name) {
+        setName(name);
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getName() {
+        return name;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-        cause = to + " " + projectName;
+    public void setName(String name) {
+        this.name = name;
+        cause = name;
     }
 }

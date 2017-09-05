@@ -1,9 +1,9 @@
 package svs.timetracker.core;
 
-/**
- * Created by Black on 29.07.2017.
- */
+import svs.timetracker.data.Repository;
 
 public interface AppBridge {
     SharedPreferencesHelper getSharedPreferences();
+
+    Repository getRepository();
 }
