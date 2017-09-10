@@ -2,19 +2,17 @@ package svs.timetracker.core;
 
 import android.app.Application;
 
-import svs.timetracker.data.Repository;
-import svs.timetracker.data.room.RoomDatabase;
-import svs.timetracker.data.room.RoomRepository;
+import svs.timetracker.data.RepositoryManager;
 
 public class TimeTrackerApplication extends Application implements AppBridge {
     private SharedPreferencesHelper sharedPreferencesHelper;
-    private Repository repository;
+    private RepositoryManager repositoryManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
         sharedPreferencesHelper = new SharedPreferencesHelper(this);
-        repository = new RoomRepository(RoomDatabase.getInstance(this).projectDao());
+        repositoryManager = new RepositoryManager(this);
     }
 
     @Override
@@ -23,7 +21,7 @@ public class TimeTrackerApplication extends Application implements AppBridge {
     }
 
     @Override
-    public Repository getRepository() {
-        return repository;
+    public RepositoryManager getRepositoryManager() {
+        return repositoryManager;
     }
 }

@@ -38,7 +38,7 @@ public class ReportFragment extends BaseFragment implements IReportView {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             reportText = getArguments().getString(REPORT_TEXT);
-            mReportPresenter = new ReportPresenter();
+            mReportPresenter = new ReportPresenterImplementation(appBridge);
         }
     }
 
@@ -76,6 +76,11 @@ public class ReportFragment extends BaseFragment implements IReportView {
     @Override
     public void displayReportText(String text) {
         mReportTextView.setText(text);
+    }
+
+    @Override
+    public String getOnString() {
+        return getString(R.string.on);
     }
 
     @Override

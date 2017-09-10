@@ -3,26 +3,26 @@ package svs.timetracker.presentation.ui.projects;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.FrameLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import svs.timetracker.R;
-import svs.timetracker.domain.model.Project;
 import svs.timetracker.presentation.ui.base.BaseFragment;
-
+import svs.timetracker.presentation.ui.projects.editable_list.ProjectsEditableListFragment;
 
 public class ProjectsFragment extends BaseFragment {
-    @BindView(R.id.projectsRecycler) RecyclerView projectsRecyclerView;
-    private ProjectsRecyclerAdapter projectsRecyclerAdapter;
-    private final List<Project> projectList = new ArrayList<>();
+    @BindView(R.id.fragment_projects_container) FrameLayout projectsContainer;
+
+    public static ProjectsFragment newInstance() {
+        Bundle args = new Bundle();
+        ProjectsFragment fragment = new ProjectsFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public ProjectsFragment() {
         // Required empty public constructor
@@ -32,14 +32,6 @@ public class ProjectsFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_projects;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        projectsRecyclerAdapter = new ProjectsRecyclerAdapter(projectList);
-        projectsRecyclerView.setAdapter(projectsRecyclerAdapter);
-        projectsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Nullable
@@ -52,4 +44,11 @@ public class ProjectsFragment extends BaseFragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragment_projects_container, ProjectsEditableListFragment.newInstance())
+                .commit();
+    }
 }

@@ -10,13 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import svs.timetracker.core.AppBridge;
 
-/**
- * Created by Black on 29.07.2017.
- */
-
-public abstract class BaseFragment extends Fragment implements IBaseView {
+public abstract class BaseFragment extends Fragment implements BaseView {
     private BaseActivity mActivity;
+    protected AppBridge appBridge;
 
     @LayoutRes
     protected abstract int getLayoutId();
@@ -25,6 +23,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = (BaseActivity) getActivity();
+        appBridge = (AppBridge) getActivity().getApplication();
     }
 
     @Nullable

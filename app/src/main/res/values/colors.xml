@@ -7,4 +7,8 @@
     <color name="colorReportText">#000000</color>
     <color name="colorNavigationBackground">#646363</color>
     <color name="colorNavigationText">#ffcc00</color>
+    <color name="colorSelectedProject">#66cc68</color>
+    <color name="colorDialogButtonBackground">#00ffffff</color>
+    <color name="colorDialogButtonText">#00ffff</color>
+    <color name="colorProjectsBackground">#646363</color>
 </resources>

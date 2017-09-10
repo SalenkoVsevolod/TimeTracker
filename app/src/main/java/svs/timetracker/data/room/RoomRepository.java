@@ -4,10 +4,11 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
-import io.reactivex.CompletableOnSubscribe;
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.functions.Action;
+import io.reactivex.schedulers.Schedulers;
 import svs.timetracker.data.Repository;
 import svs.timetracker.domain.model.Project;
 
@@ -20,7 +21,7 @@ public class RoomRepository implements Repository {
     }
 
     @Override
-    public Single<List<Project>> getProjects() {
+    public Flowable<List<Project>> getProjects() {
         return projectDao.getAll();
     }
 
@@ -30,24 +31,40 @@ public class RoomRepository implements Repository {
     }
 
     @Override
-    public Completable updateOrCreateProject(final @NonNull Project project) {
-        return Completable.create(new CompletableOnSubscribe() {
+    public void updateOrCreateProject(final @NonNull Project project) {
+        // TODO: 10.09.2017 replace with use case
+        Observable.just(project).subscribeOn(Schedulers.io()).doOnComplete(new Action() {
             @Override
-            public void subscribe(@NonNull CompletableEmitter emitter) throws Exception {
+            public void run() throws Exception {
                 projectDao.insert(project);
-                emitter.onComplete();
             }
-        });
+        }).subscribe();
     }
 
     @Override
-    public Completable deleteProject(@NonNull final Project project) {
-        return Completable.create(new CompletableOnSubscribe() {
+    public void updateProject(final @NonNull Project project) {
+        // TODO: 10.09.2017 replace with use case
+        Observable.just(project).subscribeOn(Schedulers.io()).doOnComplete(new Action() {
             @Override
-            public void subscribe(@NonNull CompletableEmitter emitter) throws Exception {
-                projectDao.delete(project);
-                emitter.onComplete();
+            public void run() throws Exception {
+                projectDao.update(project);
             }
-        });
+        }).subscribe();
+    }
+
+    @Override
+    public void deleteProject(@NonNull final Project project) {
+        // TODO: 10.09.2017 replace with use case
+        Observable.just(project).subscribeOn(Schedulers.io()).doOnComplete(new Action() {
+            @Override
+            public void run() throws Exception {
+                projectDao.delete(project);
+            }
+        }).subscribe();
+    }
+
+    @Override
+    public Flowable<Project> getSelectedProject() {
+        return projectDao.getLastSelectedProject();
     }
 }

@@ -2,11 +2,7 @@ package svs.timetracker.presentation.ui.base;
 
 import android.support.annotation.StringRes;
 
-/**
- * Created by Black on 29.07.2017.
- */
-
-public interface IBaseView {
+public interface BaseView {
     void finish();
 
     void showToast(String message);

@@ -13,21 +13,15 @@ import svs.timetracker.presentation.ui.navigation.SimpleNavigationFragment;
 import svs.timetracker.presentation.ui.report.ReportFragment;
 
 public class MainActivity extends BaseNavigationActivity {
-    private TwoLinesReport mTwoLinesReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTwoLinesReport = new TwoLinesReport();
-        mTwoLinesReport.setCurrentDate(System.currentTimeMillis());
-        mTwoLinesReport.setGreeting(new Greeting("Привет", "Марина", "))"));
-        mTwoLinesReport.setSpentTime(new SpentTime(6, "часов"));
-        mTwoLinesReport.setSpendingTimeCause(new Project("honcker"));
     }
 
     @Override
     protected BaseFragment getContentFragment() {
-        return ReportFragment.getInstance(mTwoLinesReport.toString());
+        return ReportFragment.getInstance("");
     }
 
     @Override

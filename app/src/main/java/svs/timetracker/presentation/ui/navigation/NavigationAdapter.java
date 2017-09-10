@@ -46,7 +46,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.Na
 
             @Override
             public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                return areItemsTheSame(oldItemPosition, newItemPosition) && mItems.get(oldItemPosition).getIcon().equals(items.get(newItemPosition).getIcon());
+                return areItemsTheSame(oldItemPosition, newItemPosition) /*&& mItems.get(oldItemPosition).getIcon().equals(items.get(newItemPosition).getIcon())*/;
             }
         });
         result.dispatchUpdatesTo(this);

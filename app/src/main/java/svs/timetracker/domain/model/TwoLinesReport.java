@@ -4,7 +4,7 @@ public class TwoLinesReport extends Report {
 
     @Override
     protected String getReportPattern() {
-        return "%s\n%s %s %s";
+        return "%s\n%s - %s %s";
     }
 
     @Override

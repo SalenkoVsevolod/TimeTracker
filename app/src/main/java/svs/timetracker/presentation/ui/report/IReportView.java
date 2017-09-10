@@ -1,15 +1,13 @@
 package svs.timetracker.presentation.ui.report;
 
-import svs.timetracker.presentation.ui.base.IBaseView;
+import svs.timetracker.presentation.ui.base.BaseView;
 
-/**
- * Created by Black on 29.07.2017.
- */
-
-public interface IReportView extends IBaseView {
+public interface IReportView extends BaseView {
     void setReportText(String text);
 
     void copyToClipBoard(String text);
 
     void displayReportText(String text);
+
+    String getOnString();
 }

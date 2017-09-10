@@ -25,6 +25,7 @@ public abstract class Report {
 
     public void setCurrentDate(long millis) {
         currentDate.setTimeInMillis(millis);
+        currentDate.set(Calendar.DAY_OF_MONTH, currentDate.get(Calendar.DAY_OF_MONTH) - 1);
     }
 
     public SpentTime getSpentTime() {
@@ -48,7 +49,7 @@ public abstract class Report {
         return String.format(getReportPattern(),
                 greeting.toString(),
                 StringUtils.formatDate(currentDate, StringConstants.DATE_DIVIDER, shouldShowYear()),
-                spentTime.toString(), spendingTimeCause.toString());
+                spentTime.toString(), spendingTimeCause == null ? "" : spendingTimeCause.toString());
     }
 
     protected abstract String getReportPattern();

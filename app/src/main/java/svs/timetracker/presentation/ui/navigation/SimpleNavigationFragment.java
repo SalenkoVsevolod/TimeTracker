@@ -3,39 +3,40 @@ package svs.timetracker.presentation.ui.navigation;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-public class SimpleNavigationFragment extends BaseNavigationFragment implements INavigationView {
+import svs.timetracker.presentation.ui.projects.ProjectsActivity;
 
-    private NavigationPresenter mPresenter;
+public class SimpleNavigationFragment extends BaseNavigationFragment implements NavigationView {
+
+    private NavigationPresenterImplementation presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter = new NavigationPresenter();
+        presenter = new NavigationPresenterImplementation(appBridge);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.bindView(this);
+        presenter.bindView(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mPresenter.unbindView();
+        presenter.unbindView();
     }
 
 
     @Override
     public void onNavigationItemClicked(int position) {
-        mPresenter.onNavigationItemClicked(position);
+        presenter.onNavigationItemClicked(position);
     }
 
     @Override
     public void openProjectsScreen() {
-        showToast("PROJECTS");
-        //TODO
+        ProjectsActivity.start(getActivity());
     }
 
     @Override
