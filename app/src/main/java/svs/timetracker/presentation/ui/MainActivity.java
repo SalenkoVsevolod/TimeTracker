@@ -2,10 +2,6 @@ package svs.timetracker.presentation.ui;
 
 import android.os.Bundle;
 
-import svs.timetracker.domain.model.Greeting;
-import svs.timetracker.domain.model.Project;
-import svs.timetracker.domain.model.SpentTime;
-import svs.timetracker.domain.model.TwoLinesReport;
 import svs.timetracker.presentation.ui.base.BaseFragment;
 import svs.timetracker.presentation.ui.navigation.BaseNavigationActivity;
 import svs.timetracker.presentation.ui.navigation.BaseNavigationFragment;

@@ -1,6 +1,6 @@
 package svs.timetracker.domain.model;
 
-public class TwoLinesReport extends Report {
+public class PreviousWorkDayTwoLinesReport extends PreviousWorkDayReport {
 
     @Override
     protected String getReportPattern() {

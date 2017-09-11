@@ -7,17 +7,17 @@ import io.reactivex.observers.DisposableObserver;
 import svs.timetracker.R;
 import svs.timetracker.core.AppBridge;
 import svs.timetracker.domain.model.Greeting;
+import svs.timetracker.domain.model.PreviousWorkDayTwoLinesReport;
 import svs.timetracker.domain.model.Project;
 import svs.timetracker.domain.model.SpentTime;
-import svs.timetracker.domain.model.TwoLinesReport;
 import svs.timetracker.domain.use_case.GetSelectedProjectUseCase;
 import svs.timetracker.presentation.ui.base.BasePresenterImplementation;
 
 public class ReportPresenterImplementation extends BasePresenterImplementation<IReportView> implements ReportPresenter {
     private static final String TAG = "ReportPresenterImplemen";
+    private final PreviousWorkDayTwoLinesReport yesterdayTwoLinesReport = new PreviousWorkDayTwoLinesReport();
     private String reportText;
     private GetSelectedProjectUseCase getSelectedProjectUseCase;
-    private final TwoLinesReport twoLinesReport = new TwoLinesReport();
 
     public ReportPresenterImplementation(AppBridge appBridge) {
         super(appBridge);
@@ -27,10 +27,10 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
     public void bindView(IReportView iReportView) {
         super.bindView(iReportView);
         getSelectedProjectUseCase = new GetSelectedProjectUseCase(appBridge.getRepositoryManager().getRepository());
-        twoLinesReport.setCurrentDate(System.currentTimeMillis());
-        twoLinesReport.setGreeting(new Greeting("Привет", null, "))"));
-        twoLinesReport.setSpentTime(new SpentTime(8, "часов"));
-        reportText = twoLinesReport.toString();
+        yesterdayTwoLinesReport.setCurrentDate(System.currentTimeMillis());
+        yesterdayTwoLinesReport.setGreeting(new Greeting("Привет", null, "))"));
+        yesterdayTwoLinesReport.setSpentTime(new SpentTime(8, "часов"));
+        reportText = yesterdayTwoLinesReport.toString();
         getView().setReportText(reportText);
         getSelectedProjectUseCase.execute(new SelectedProjectObserver(), null);
     }
@@ -55,11 +55,11 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
 
         @Override
         public void onNext(@NonNull Project project) {
-            twoLinesReport.setSpendingTimeCause(project);
+            yesterdayTwoLinesReport.setSpendingTimeCause(project);
             project.setName(String.format(getView().getOnString(), project.getName()));
-            reportText = twoLinesReport.toString();
+            reportText = yesterdayTwoLinesReport.toString();
             Log.i(TAG, "onNext: " + reportText);
-            getView().setReportText(twoLinesReport.toString());
+            getView().setReportText(yesterdayTwoLinesReport.toString());
         }
 
         @Override

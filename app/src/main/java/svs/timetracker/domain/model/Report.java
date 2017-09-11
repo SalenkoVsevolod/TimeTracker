@@ -6,10 +6,10 @@ import svs.timetracker.data.StringConstants;
 import svs.timetracker.utils.StringUtils;
 
 public abstract class Report {
-    private SpendingTimeCause spendingTimeCause;
-    private final Calendar currentDate = Calendar.getInstance();
-    private SpentTime spentTime;
-    private Greeting greeting;
+    protected final Calendar currentDate = Calendar.getInstance();
+    protected SpendingTimeCause spendingTimeCause;
+    protected SpentTime spentTime;
+    protected Greeting greeting;
 
     public SpendingTimeCause getSpendingTimeCause() {
         return spendingTimeCause;
@@ -25,7 +25,6 @@ public abstract class Report {
 
     public void setCurrentDate(long millis) {
         currentDate.setTimeInMillis(millis);
-        currentDate.set(Calendar.DAY_OF_MONTH, currentDate.get(Calendar.DAY_OF_MONTH) - 1);
     }
 
     public SpentTime getSpentTime() {
