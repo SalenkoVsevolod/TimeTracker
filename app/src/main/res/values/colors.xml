@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="colorReportText">#000000</color>
+    <color name="colorReportText">#ffea00</color>
     <color name="colorNavigationBackground">#646363</color>
     <color name="colorNavigationText">#ffcc00</color>
     <color name="colorSelectedProject">#66cc68</color>

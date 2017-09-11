@@ -19,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.ui.projects.ProjectsActivity">
+        <activity
+            android:name=".presentation.ui.projects.ProjectsActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
