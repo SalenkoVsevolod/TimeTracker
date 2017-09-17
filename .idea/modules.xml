@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TimeTracker.iml" filepath="$PROJECT_DIR$/TimeTracker.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/neon-release/neon-release.iml" filepath="$PROJECT_DIR$/neon-release/neon-release.iml" />
     </modules>
   </component>
 </project>

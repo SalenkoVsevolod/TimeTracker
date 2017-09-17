@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <svs.timetracker.presentation.custom_view.NeonTextView
+    <svs.neon.widgets.NeonTextView
         android:id="@+id/fragment_report_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,6 +35,5 @@
         app:layout_constraintBottom_toTopOf="@id/hoursSeekBar"
         app:layout_constraintTop_toBottomOf="@id/emojiSeekBar"
         app:neonMode="blinking"/>
-
 
 </android.support.constraint.ConstraintLayout>
