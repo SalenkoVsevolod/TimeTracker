@@ -3,6 +3,7 @@ package svs.timetracker.presentation.custom_view;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class NeonTextView extends AppCompatTextView implements ValueAnimator.Ani
     private int blinkDuration;
     private int pulseDuration;
     private int pulsationPause;
+    private int textColor;
     private ValueAnimator valueAnimator;
 
     public NeonTextView(Context context) {
@@ -55,8 +57,9 @@ public class NeonTextView extends AppCompatTextView implements ValueAnimator.Ani
             pulseDuration = neonTypedArray.getInt(R.styleable.NeonTextView_pulseDuration, 2000);
             pulsationPause = neonTypedArray.getInt(R.styleable.NeonTextView_pulsationPause, 1000);
             neonColor = neonTypedArray.getInt(R.styleable.NeonTextView_neonColor, -1);
+            textColor = textTypedArray.getColor(0, 0);
             if (neonColor == -1) {
-                neonColor = textTypedArray.getColor(0, 0);
+                neonColor = textColor;
             }
             handleNeonMode(mode);
         } finally {
@@ -85,6 +88,7 @@ public class NeonTextView extends AppCompatTextView implements ValueAnimator.Ani
             default:
             case CONSTANT:
                 setShadowLayer(neonRadius, 0, 0, neonColor);
+                setTextColor(changeColorBrightness(neonRadius));
                 break;
             case BLINKING:
                 startBlinking();
@@ -124,6 +128,16 @@ public class NeonTextView extends AppCompatTextView implements ValueAnimator.Ani
     public void onAnimationUpdate(ValueAnimator valueAnimator) {
         final float value = (float) valueAnimator.getAnimatedValue();
         Log.i(TAG, "onAnimationUpdate: " + value);
+        setTextColor(changeColorBrightness(value));
         setShadowLayer(value, 0, 0, neonColor);
+    }
+
+    private int changeColorBrightness(float brightnessValue) {
+        final float[] hsl = new float[3];
+        ColorUtils.colorToHSL(textColor, hsl);
+        hsl[2] += (brightnessValue / 100);
+        Log.i(TAG, "changeColorBrightness: h:" + hsl[0] + ", s:" + hsl[1] + ", l:" + hsl[2]);
+        Log.i(TAG, "changeColorBrightness: brightnessValue:" + brightnessValue);
+        return ColorUtils.HSLToColor(hsl);
     }
 }
