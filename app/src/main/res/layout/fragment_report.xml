@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:orientation="vertical">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-    <TextView
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/emojiSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.AppCompatSeekBar
+        android:id="@+id/hoursSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <svs.timetracker.presentation.custom_view.NeonTextView
         android:id="@+id/fragment_report_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/report_text_padding"
         android:text="@string/sample_report_text"
         android:textColor="@color/colorReportText"
-        android:textSize="@dimen/report_text_size"/>
-</FrameLayout>
+        android:textSize="@dimen/report_text_size"
+        app:layout_constraintBottom_toTopOf="@id/hoursSeekBar"
+        app:layout_constraintTop_toBottomOf="@id/emojiSeekBar"
+        app:neonMode="sequentialPulsation"/>
+
+
+</android.support.constraint.ConstraintLayout>

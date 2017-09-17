@@ -7,4 +7,8 @@ public interface ReportPresenter extends BasePresenter<IReportView> {
     void onReportClick();
 
     void onTextChanged(String text);
+
+    void onEmojiNumberChanged(int number);
+
+    void onHoursNumberChanged(int hours);
 }

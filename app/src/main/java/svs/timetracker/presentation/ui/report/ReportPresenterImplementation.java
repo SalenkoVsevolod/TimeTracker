@@ -15,12 +15,18 @@ import svs.timetracker.presentation.ui.base.BasePresenterImplementation;
 
 public class ReportPresenterImplementation extends BasePresenterImplementation<IReportView> implements ReportPresenter {
     private static final String TAG = "ReportPresenterImplemen";
+    // TODO: 17.09.2017 customize it
+    private static final String GREETING_TEXT = "Привет";
+    // TODO: 17.09.2017 customize it
+    private static final String HOURS_TEXT = "часов";
     private final PreviousWorkDayTwoLinesReport yesterdayTwoLinesReport = new PreviousWorkDayTwoLinesReport();
+    private final String emojiItem;
     private String reportText;
     private GetSelectedProjectUseCase getSelectedProjectUseCase;
 
     public ReportPresenterImplementation(AppBridge appBridge) {
         super(appBridge);
+        emojiItem = appBridge.getSharedPreferences().getEmojiItem();
     }
 
     @Override
@@ -28,8 +34,8 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
         super.bindView(iReportView);
         getSelectedProjectUseCase = new GetSelectedProjectUseCase(appBridge.getRepositoryManager().getRepository());
         yesterdayTwoLinesReport.setCurrentDate(System.currentTimeMillis());
-        yesterdayTwoLinesReport.setGreeting(new Greeting("Привет", null, "))"));
-        yesterdayTwoLinesReport.setSpentTime(new SpentTime(8, "часов"));
+        yesterdayTwoLinesReport.setGreeting(new Greeting(GREETING_TEXT, null, getEmojiString(0)));
+        yesterdayTwoLinesReport.setSpentTime(new SpentTime(appBridge.getSharedPreferences().getMinHours(), HOURS_TEXT));
         reportText = yesterdayTwoLinesReport.toString();
         getView().setReportText(reportText);
         getSelectedProjectUseCase.execute(new SelectedProjectObserver(), null);
@@ -49,6 +55,26 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
     public void onTextChanged(String text) {
         reportText = text;
         getView().displayReportText(reportText);
+    }
+
+    @Override
+    public void onEmojiNumberChanged(final int number) {
+        yesterdayTwoLinesReport.setGreeting(new Greeting(GREETING_TEXT, null, getEmojiString(number)));
+        getView().setReportText(yesterdayTwoLinesReport.toString());
+    }
+
+    @Override
+    public void onHoursNumberChanged(final int hours) {
+        yesterdayTwoLinesReport.setSpentTime(new SpentTime(hours, HOURS_TEXT));
+        getView().setReportText(yesterdayTwoLinesReport.toString());
+    }
+
+    private String getEmojiString(int itemsNumber) {
+        final StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < itemsNumber; i++) {
+            stringBuilder.append(emojiItem);
+        }
+        return stringBuilder.toString();
     }
 
     private class SelectedProjectObserver extends DisposableObserver<Project> {

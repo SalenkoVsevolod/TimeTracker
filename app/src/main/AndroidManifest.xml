@@ -23,6 +23,8 @@
             android:name=".presentation.ui.projects.ProjectsActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".presentation.ui.greetings.GreetingsActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -13,4 +13,7 @@
     <string name="create_project_title">Create project</string>
     <string name="project_name_hint">project name…</string>
     <string name="item_deleted" formatted="false">%s %s deleted</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

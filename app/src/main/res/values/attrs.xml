@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NeonTextView">
+        <attr name="neonRadius" format="float"/>
+        <attr name="neonColor" format="color"/>
+        <attr name="blinkDuration" format="integer"/>
+        <attr name="pulseDuration" format="integer"/>
+        <attr name="pulsationPause" format="integer"/>
+        <attr name="neonMode" format="enum">
+            <enum name="constant" value="0"/>
+            <enum name="blinking" value="1"/>
+            <enum name="sequentialPulsation" value="2"/>
+            <enum name="randomSplash" value="3"/>
+            <enum name="interactive" value="4"/>
+        </attr>
+    </declare-styleable>
+</resources>

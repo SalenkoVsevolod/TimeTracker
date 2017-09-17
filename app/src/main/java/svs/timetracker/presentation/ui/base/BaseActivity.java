@@ -7,11 +7,16 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import svs.timetracker.core.AppBridge;
+
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
+    protected AppBridge appBridge;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        appBridge = (AppBridge) getApplication();
     }
 
     @LayoutRes
@@ -26,7 +31,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void showToast(@StringRes int messageRes) {
         showToast(getString(messageRes));
     }
-
 
 
 }

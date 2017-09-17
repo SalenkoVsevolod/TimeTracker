@@ -19,8 +19,8 @@ import svs.timetracker.presentation.ui.base.BaseFragment;
 
 public abstract class BaseNavigationActivity extends BaseActivity {
     @BindView(R.id.base_navigation_drawer_layout) protected DrawerLayout mDrawerLayout;
-    @BindView(R.id.toolbar) Toolbar mToolbar;
     protected ActionBarDrawerToggle mDrawerToggle;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
 
     @Override
     protected int getLayoutId() {
@@ -38,7 +38,7 @@ public abstract class BaseNavigationActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getFragmentManager().beginTransaction().add(R.id.left_drawer, getNavigationFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.left_drawer, getNavigationFragment()).commit();
         initContent();
     }
 
@@ -70,7 +70,7 @@ public abstract class BaseNavigationActivity extends BaseActivity {
     private void initContent() {
         final BaseFragment fragment = getContentFragment();
         if (fragment != null) {
-            getFragmentManager().beginTransaction().add(R.id.base_navigation_content, getContentFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.base_navigation_content, getContentFragment()).commit();
         }
     }
 

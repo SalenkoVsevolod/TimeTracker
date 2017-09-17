@@ -20,7 +20,6 @@ import svs.timetracker.presentation.ui.base.list.OnItemClickListener;
 import svs.timetracker.presentation.ui.base.list.list_fragments.BaseAddableRemovableListFragment;
 import svs.timetracker.presentation.ui.projects.ProjectsRecyclerAdapter;
 
-//TODO create abstract editable list fragment and move all displaying logic there
 public class ProjectsEditableListFragment
         extends BaseAddableRemovableListFragment<Project, ProjectsRecyclerAdapter, ProjectsRecyclerAdapter.ProjectsViewHolder>
         implements ProjectsEditableListView, OnItemClickListener<Project>, ProjectsRecyclerAdapter.OnProjectUnselectedListener {

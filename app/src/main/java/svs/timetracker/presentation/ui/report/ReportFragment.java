@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -16,8 +17,10 @@ import svs.timetracker.presentation.ui.base.BaseFragment;
 
 public class ReportFragment extends BaseFragment implements IReportView {
     private static final String REPORT_TEXT = "reportText";
-    @BindView(R.id.fragment_report_text) TextView mReportTextView;
-    private ReportPresenter mReportPresenter;
+    @BindView(R.id.fragment_report_text) TextView reportTextView;
+    @BindView(R.id.emojiSeekBar) SeekBar emojiSeekBar;
+    @BindView(R.id.hoursSeekBar) SeekBar hoursSeekBar;
+    private ReportPresenter reportPresenter;
     private String reportText;
 
     public static ReportFragment getInstance(String reportText) {
@@ -38,44 +41,52 @@ public class ReportFragment extends BaseFragment implements IReportView {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             reportText = getArguments().getString(REPORT_TEXT);
-            mReportPresenter = new ReportPresenterImplementation(appBridge);
+            reportPresenter = new ReportPresenterImplementation(appBridge);
         }
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        emojiSeekBar.setMax(appBridge.getSharedPreferences().getMaxEmojiNumber());
+        hoursSeekBar.setMax(appBridge.getSharedPreferences().getMaxHours() - appBridge.getSharedPreferences().getMinHours());
+        emojiSeekBar.setOnSeekBarChangeListener(new OnEmojiNumberChangingListener());
+        hoursSeekBar.setOnSeekBarChangeListener(new OnHoursChangingListener());
+    }
+
+    private int getHoursValue() {
+        return hoursSeekBar.getProgress() + appBridge.getSharedPreferences().getMinHours();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mReportPresenter.bindView(this);
+        reportPresenter.bindView(this);
         if (reportText != null) {
-            mReportPresenter.onTextChanged(reportText);
+            reportPresenter.onTextChanged(reportText);
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mReportPresenter.unbindView();
+        reportPresenter.unbindView();
     }
 
     @OnClick(R.id.fragment_report_text)
     public void onReportClick() {
-        mReportPresenter.onReportClick();
+        reportPresenter.onReportClick();
     }
 
     @Override
     public void setReportText(String text) {
         this.reportText = text;
-        mReportPresenter.onTextChanged(text);
+        reportPresenter.onTextChanged(text);
     }
 
     @Override
     public void displayReportText(String text) {
-        mReportTextView.setText(text);
+        reportTextView.setText(text);
     }
 
     @Override
@@ -88,5 +99,41 @@ public class ReportFragment extends BaseFragment implements IReportView {
         ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(getString(R.string.time_report), text);
         clipboard.setPrimaryClip(clip);
+    }
+
+    private final class OnEmojiNumberChangingListener implements SeekBar.OnSeekBarChangeListener {
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            reportPresenter.onEmojiNumberChanged(i);
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    }
+
+    private final class OnHoursChangingListener implements SeekBar.OnSeekBarChangeListener {
+
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            reportPresenter.onHoursNumberChanged(getHoursValue());
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
     }
 }
