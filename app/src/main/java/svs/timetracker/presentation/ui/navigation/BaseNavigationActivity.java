@@ -33,11 +33,6 @@ public abstract class BaseNavigationActivity extends BaseActivity {
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         initNavigationToggle();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         getSupportFragmentManager().beginTransaction().add(R.id.left_drawer, getNavigationFragment()).commit();
         initContent();
     }
