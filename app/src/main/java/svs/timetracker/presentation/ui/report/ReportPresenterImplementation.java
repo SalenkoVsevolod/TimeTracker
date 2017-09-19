@@ -37,7 +37,7 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
         yesterdayTwoLinesReport.setGreeting(new Greeting(GREETING_TEXT, null, getEmojiString(0)));
         yesterdayTwoLinesReport.setSpentTime(new SpentTime(appBridge.getSharedPreferences().getMinHours(), HOURS_TEXT));
         reportText = yesterdayTwoLinesReport.toString();
-        getView().setReportText(reportText);
+        getView().displayReportText(reportText);
         getSelectedProjectUseCase.execute(new SelectedProjectObserver(), null);
     }
 
@@ -52,21 +52,18 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
         getView().showToast(R.string.report_copied_to_clipboard);
     }
 
-    public void onTextChanged(String text) {
-        reportText = text;
-        getView().displayReportText(reportText);
-    }
-
     @Override
     public void onEmojiNumberChanged(final int number) {
         yesterdayTwoLinesReport.setGreeting(new Greeting(GREETING_TEXT, null, getEmojiString(number)));
-        getView().setReportText(yesterdayTwoLinesReport.toString());
+        reportText = yesterdayTwoLinesReport.toString();
+        getView().displayReportText(reportText);
     }
 
     @Override
     public void onHoursNumberChanged(final int hours) {
         yesterdayTwoLinesReport.setSpentTime(new SpentTime(hours, HOURS_TEXT));
-        getView().setReportText(yesterdayTwoLinesReport.toString());
+        reportText = yesterdayTwoLinesReport.toString();
+        getView().displayReportText(reportText);
     }
 
     private String getEmojiString(int itemsNumber) {
@@ -85,7 +82,7 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
             project.setName(String.format(getView().getOnString(), project.getName()));
             reportText = yesterdayTwoLinesReport.toString();
             Log.i(TAG, "onNext: " + reportText);
-            getView().setReportText(yesterdayTwoLinesReport.toString());
+            getView().displayReportText(yesterdayTwoLinesReport.toString());
         }
 
         @Override

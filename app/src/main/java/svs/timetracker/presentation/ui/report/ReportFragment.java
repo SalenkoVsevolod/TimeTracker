@@ -62,9 +62,6 @@ public class ReportFragment extends BaseFragment implements IReportView {
     public void onResume() {
         super.onResume();
         reportPresenter.bindView(this);
-        if (reportText != null) {
-            reportPresenter.onTextChanged(reportText);
-        }
     }
 
     @Override
@@ -76,12 +73,6 @@ public class ReportFragment extends BaseFragment implements IReportView {
     @OnClick(R.id.fragment_report_text)
     public void onReportClick() {
         reportPresenter.onReportClick();
-    }
-
-    @Override
-    public void setReportText(String text) {
-        this.reportText = text;
-        reportPresenter.onTextChanged(text);
     }
 
     @Override
@@ -105,7 +96,7 @@ public class ReportFragment extends BaseFragment implements IReportView {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            reportPresenter.onEmojiNumberChanged(i);
+            // TODO: 19.09.2017 show progress popup
         }
 
         @Override
@@ -115,7 +106,7 @@ public class ReportFragment extends BaseFragment implements IReportView {
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-
+            reportPresenter.onEmojiNumberChanged(seekBar.getProgress());
         }
     }
 
@@ -123,7 +114,7 @@ public class ReportFragment extends BaseFragment implements IReportView {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            reportPresenter.onHoursNumberChanged(getHoursValue());
+            // TODO: 19.09.2017 show progress popup 
         }
 
         @Override
@@ -133,7 +124,7 @@ public class ReportFragment extends BaseFragment implements IReportView {
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-
+            reportPresenter.onHoursNumberChanged(getHoursValue());
         }
     }
 }
