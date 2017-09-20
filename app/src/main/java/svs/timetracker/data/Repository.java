@@ -16,6 +16,4 @@ public interface Repository {
     void updateProject(Project project);
 
     void deleteProject(Project project);
-
-    Flowable<Project> getSelectedProject();
 }

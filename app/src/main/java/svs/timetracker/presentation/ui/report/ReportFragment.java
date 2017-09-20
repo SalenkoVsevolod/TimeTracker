@@ -114,7 +114,7 @@ public class ReportFragment extends BaseFragment implements IReportView {
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            // TODO: 19.09.2017 show progress popup 
+            // TODO: 19.09.2017 show progress popup
         }
 
         @Override

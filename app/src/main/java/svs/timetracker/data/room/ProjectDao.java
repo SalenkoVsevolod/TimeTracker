@@ -18,9 +18,6 @@ public interface ProjectDao {
     @Query("SELECT * FROM Project ORDER BY projectName")
     Flowable<List<Project>> getAll();
 
-    @Query("SELECT * FROM Project WHERE isSelected = 1 LIMIT 1")
-    Flowable<Project> getLastSelectedProject();
-
     @Query("SELECT * FROM Project where projectName = :name LIMIT 1")
     Single<Project> getByName(String name);
 

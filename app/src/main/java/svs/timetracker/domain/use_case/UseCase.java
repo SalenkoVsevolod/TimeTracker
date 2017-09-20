@@ -8,7 +8,7 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public abstract class UseCase<T, Params> {
-    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    private CompositeDisposable mCompositeDisposable;
 
     protected abstract Observable<T> buildObservable(Params params);
 
@@ -19,17 +19,13 @@ public abstract class UseCase<T, Params> {
         addDisposable(observable.subscribeWith(disposableObserver));
     }
 
-    public void executeSync(Params params) {
-        buildObservable(params)
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
-    }
-
     private void addDisposable(Disposable disposable) {
-        mCompositeDisposable.add(disposable);
+        mCompositeDisposable = new CompositeDisposable(disposable);
     }
 
     public void dispose() {
-        mCompositeDisposable.dispose();
+        if (mCompositeDisposable != null) {
+            mCompositeDisposable.dispose();
+        }
     }
 }

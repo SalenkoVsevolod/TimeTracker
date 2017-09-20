@@ -20,16 +20,14 @@ import svs.timetracker.presentation.ui.base.list.OnItemClickListener;
 
 public class ProjectsRecyclerAdapter extends BaseAdapter<Project, ProjectsRecyclerAdapter.ProjectsViewHolder> {
     private static final String TAG = "ProjectsRecyclerAdapter";
+    public OnItemClickListener<Project> onItemClickListener;
     private Context context;
-    private Project currentSelectedProject;
-    private OnProjectUnselectedListener onProjectUnselectedListener;
+    private String selectedProjectName;
 
     public ProjectsRecyclerAdapter(Context context, List<Project> projectList) {
         super(projectList);
         this.context = context;
     }
-
-    public OnItemClickListener<Project> onItemClickListener;
 
     @Override
     public void setItems(List<Project> projects) {
@@ -52,7 +50,7 @@ public class ProjectsRecyclerAdapter extends BaseAdapter<Project, ProjectsRecycl
     public void onBindViewHolder(ProjectsViewHolder holder, int position) {
         final Project project = items.get(holder.getAdapterPosition());
         holder.projectItemTextView.setText(project.getName());
-        if (project.isCurrentSelected()) {
+        if (selectedProjectName != null && project.getName().equals(selectedProjectName)) {
             holder.projectItemTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorSelectedProject));
         } else {
             holder.projectItemTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorProjectsBackground));
@@ -63,18 +61,12 @@ public class ProjectsRecyclerAdapter extends BaseAdapter<Project, ProjectsRecycl
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setProjectSelected(@NonNull final String projectName) {
-        if (currentSelectedProject != null) {
-            currentSelectedProject.setCurrentSelected(false);
-            final int previousPosition = getProjectPosition(currentSelectedProject.getName());
-            if (onProjectUnselectedListener != null) {
-                onProjectUnselectedListener.onProjectUnselected(items.get(previousPosition));
-            }
-            notifyItemChanged(previousPosition);
-        }
-        currentSelectedProject = items.get(getProjectPosition(projectName));
-        currentSelectedProject.setCurrentSelected(true);
-        notifyItemChanged(getProjectPosition(currentSelectedProject.getName()));
+    private void setProjectSelected(@NonNull final String projectName) {
+        final int previousPosition = getProjectPosition(selectedProjectName);
+        this.selectedProjectName = projectName;
+        notifyItemChanged(previousPosition);
+        final int currentPosition = getProjectPosition(selectedProjectName);
+        notifyItemChanged(currentPosition);
     }
 
     public int getProjectPosition(@NonNull final String projectName) {
@@ -86,8 +78,8 @@ public class ProjectsRecyclerAdapter extends BaseAdapter<Project, ProjectsRecycl
         return 0;
     }
 
-    public void setOnProjectUnselectedListener(OnProjectUnselectedListener onProjectUnselectedListener) {
-        this.onProjectUnselectedListener = onProjectUnselectedListener;
+    public void setSelectedProject(@NonNull final String selectedProjectName) {
+        setProjectSelected(selectedProjectName);
     }
 
     public class ProjectsViewHolder extends BaseViewHolder {
@@ -99,14 +91,13 @@ public class ProjectsRecyclerAdapter extends BaseAdapter<Project, ProjectsRecycl
                 @Override
                 public void onClick(View view) {
                     if (onItemClickListener != null) {
-                        onItemClickListener.onItemClicked(getAdapterPosition(), items.get(getAdapterPosition()));
+                        final Project selectedProject = items.get(getAdapterPosition());
+                        setSelectedProject(selectedProject.getName());
+                        onItemClickListener.onItemClicked(getAdapterPosition(), selectedProject);
                     }
                 }
             });
         }
     }
 
-    public interface OnProjectUnselectedListener {
-        void onProjectUnselected(Project project);
-    }
 }

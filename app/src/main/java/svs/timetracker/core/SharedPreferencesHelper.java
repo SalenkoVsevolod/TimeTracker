@@ -3,6 +3,7 @@ package svs.timetracker.core;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public class SharedPreferencesHelper {
     private static final String PREFERENCES_NAME = "prefs";
@@ -11,6 +12,7 @@ public class SharedPreferencesHelper {
     private static final String MIN_HOURS_KEY = "minHoursKey";
     private static final String MAX_HOURS_KEY = "maxHoursKey";
     private static final String EMOJI_ITEM_KEY = "emojiCharKey";
+    private static final String LAST_SELECTED_PROJECT_KEY = "lastSelectedProjectKey";
     private SharedPreferences preferences;
 
     public SharedPreferencesHelper(Context context) {
@@ -47,6 +49,15 @@ public class SharedPreferencesHelper {
 
     public void setMaxHours(final int hours) {
         preferences.edit().putInt(MAX_HOURS_KEY, hours).apply();
+    }
+
+    @Nullable
+    public String getSelectedProject() {
+        return preferences.getString(LAST_SELECTED_PROJECT_KEY, null);
+    }
+
+    public void setSelectedProject(@Nullable final String projectName) {
+        preferences.edit().putString(LAST_SELECTED_PROJECT_KEY, projectName).apply();
     }
 
     @NonNull

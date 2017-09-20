@@ -10,7 +10,7 @@ import svs.timetracker.domain.model.Greeting;
 import svs.timetracker.domain.model.PreviousWorkDayTwoLinesReport;
 import svs.timetracker.domain.model.Project;
 import svs.timetracker.domain.model.SpentTime;
-import svs.timetracker.domain.use_case.GetSelectedProjectUseCase;
+import svs.timetracker.domain.use_case.GetProjectByNameUseCase;
 import svs.timetracker.presentation.ui.base.BasePresenterImplementation;
 
 public class ReportPresenterImplementation extends BasePresenterImplementation<IReportView> implements ReportPresenter {
@@ -19,32 +19,36 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
     private static final String GREETING_TEXT = "Привет";
     // TODO: 17.09.2017 customize it
     private static final String HOURS_TEXT = "часов";
-    private final PreviousWorkDayTwoLinesReport yesterdayTwoLinesReport = new PreviousWorkDayTwoLinesReport();
     private final String emojiItem;
+    private PreviousWorkDayTwoLinesReport yesterdayTwoLinesReport;
     private String reportText;
-    private GetSelectedProjectUseCase getSelectedProjectUseCase;
+    private GetProjectByNameUseCase getProjectByNameUseCase;
 
     public ReportPresenterImplementation(AppBridge appBridge) {
         super(appBridge);
         emojiItem = appBridge.getSharedPreferences().getEmojiItem();
+        getProjectByNameUseCase = new GetProjectByNameUseCase(appBridge.getRepositoryManager().getRepository());
     }
 
     @Override
     public void bindView(IReportView iReportView) {
         super.bindView(iReportView);
-        getSelectedProjectUseCase = new GetSelectedProjectUseCase(appBridge.getRepositoryManager().getRepository());
+        yesterdayTwoLinesReport = new PreviousWorkDayTwoLinesReport();
         yesterdayTwoLinesReport.setCurrentDate(System.currentTimeMillis());
         yesterdayTwoLinesReport.setGreeting(new Greeting(GREETING_TEXT, null, getEmojiString(0)));
         yesterdayTwoLinesReport.setSpentTime(new SpentTime(appBridge.getSharedPreferences().getMinHours(), HOURS_TEXT));
         reportText = yesterdayTwoLinesReport.toString();
+        final String selectedProjectName = appBridge.getSharedPreferences().getSelectedProject();
+        if (selectedProjectName != null) {
+            getProjectByNameUseCase.execute(new ProjectObserver(), GetProjectByNameUseCase.Params.withFileName(selectedProjectName));
+        }
         getView().displayReportText(reportText);
-        getSelectedProjectUseCase.execute(new SelectedProjectObserver(), null);
     }
 
     @Override
     public void unbindView() {
         super.unbindView();
-        getSelectedProjectUseCase.dispose();
+        getProjectByNameUseCase.dispose();
     }
 
     public void onReportClick() {
@@ -74,7 +78,7 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
         return stringBuilder.toString();
     }
 
-    private class SelectedProjectObserver extends DisposableObserver<Project> {
+    private class ProjectObserver extends DisposableObserver<Project> {
 
         @Override
         public void onNext(@NonNull Project project) {

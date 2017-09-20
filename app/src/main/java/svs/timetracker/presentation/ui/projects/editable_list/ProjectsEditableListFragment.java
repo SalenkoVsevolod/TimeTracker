@@ -22,7 +22,7 @@ import svs.timetracker.presentation.ui.projects.ProjectsRecyclerAdapter;
 
 public class ProjectsEditableListFragment
         extends BaseAddableRemovableListFragment<Project, ProjectsRecyclerAdapter, ProjectsRecyclerAdapter.ProjectsViewHolder>
-        implements ProjectsEditableListView, OnItemClickListener<Project>, ProjectsRecyclerAdapter.OnProjectUnselectedListener {
+        implements ProjectsEditableListView, OnItemClickListener<Project> {
     private ProjectsEditableListFragmentPresenter presenter;
 
     public ProjectsEditableListFragment() {
@@ -73,7 +73,6 @@ public class ProjectsEditableListFragment
     protected ProjectsRecyclerAdapter initAdapter() {
         final ProjectsRecyclerAdapter adapter = new ProjectsRecyclerAdapter(getActivity(), new ArrayList<Project>());
         adapter.setOnItemClickListener(this);
-        adapter.setOnProjectUnselectedListener(this);
         return adapter;
     }
 
@@ -83,8 +82,13 @@ public class ProjectsEditableListFragment
     }
 
     @Override
-    public void setProjects(List<Project> projects) {
+    public void setProjects(@NonNull final List<Project> projects) {
         getAdapter().setItems(projects);
+    }
+
+    @Override
+    public void setSelectedProject(@NonNull final String selectedProjectName) {
+        getAdapter().setSelectedProject(selectedProjectName);
     }
 
     private void showCreateProjectDialog() {
@@ -124,13 +128,7 @@ public class ProjectsEditableListFragment
     }
 
     @Override
-    public void onItemClicked(int position, Project project) {
-        presenter.onProjectClicked(project);
-        getAdapter().setProjectSelected(project.getName());
-    }
-
-    @Override
-    public void onProjectUnselected(Project project) {
-        presenter.onProjectUnselected(project);
+    public void onItemClicked(int position, @NonNull final Project project) {
+        presenter.onProjectSelected(project);
     }
 }

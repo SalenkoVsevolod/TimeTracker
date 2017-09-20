@@ -1,16 +1,16 @@
 package svs.timetracker.presentation.ui.projects.editable_list;
 
+import android.support.annotation.NonNull;
+
 import svs.timetracker.domain.model.Project;
 import svs.timetracker.presentation.ui.base.BasePresenter;
 
 public interface ProjectsEditableListFragmentPresenter extends BasePresenter<ProjectsEditableListView> {
-    void onProjectDelete(Project project);
+    void onProjectDelete(@NonNull Project project);
 
-    void onProjectAdded(Project project);
+    void onProjectAdded(@NonNull Project project);
 
-    void onProjectRestore(Project project);
+    void onProjectRestore(@NonNull Project project);
 
-    void onProjectClicked(Project project);
-
-    void onProjectUnselected(Project project);
+    void onProjectSelected(@NonNull Project project);
 }

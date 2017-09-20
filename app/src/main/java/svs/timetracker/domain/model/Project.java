@@ -10,9 +10,6 @@ public class Project extends SpendingTimeCause implements Nameable {
     @ColumnInfo(name = "projectName")
     private String name;
 
-    @ColumnInfo(name = "isSelected")
-    private boolean isCurrentSelected;
-
     public Project(String name) {
         setName(name);
     }
@@ -27,16 +24,11 @@ public class Project extends SpendingTimeCause implements Nameable {
         cause = name;
     }
 
-    public boolean isCurrentSelected() {
-        return isCurrentSelected;
-    }
-
-    public void setCurrentSelected(boolean currentSelected) {
-        isCurrentSelected = currentSelected;
-    }
-
     @Override
     public boolean equals(Object obj) {
+        if (!(obj instanceof Project)) {
+            return false;
+        }
         final Project project = (Project) obj;
         return project.getName().equals(name);
     }

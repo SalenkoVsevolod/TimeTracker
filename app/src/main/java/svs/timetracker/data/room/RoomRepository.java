@@ -26,12 +26,12 @@ public class RoomRepository implements Repository {
     }
 
     @Override
-    public Single<Project> getProjectByName(String name) {
+    public Single<Project> getProjectByName(@NonNull final String name) {
         return projectDao.getByName(name);
     }
 
     @Override
-    public void updateOrCreateProject(final @NonNull Project project) {
+    public void updateOrCreateProject(@NonNull final Project project) {
         // TODO: 10.09.2017 replace with use case
         Observable.just(project).subscribeOn(Schedulers.io()).doOnComplete(new Action() {
             @Override
@@ -42,7 +42,7 @@ public class RoomRepository implements Repository {
     }
 
     @Override
-    public void updateProject(final @NonNull Project project) {
+    public void updateProject(@NonNull final Project project) {
         // TODO: 10.09.2017 replace with use case
         Observable.just(project).subscribeOn(Schedulers.io()).doOnComplete(new Action() {
             @Override
@@ -61,10 +61,5 @@ public class RoomRepository implements Repository {
                 projectDao.delete(project);
             }
         }).subscribe();
-    }
-
-    @Override
-    public Flowable<Project> getSelectedProject() {
-        return projectDao.getLastSelectedProject();
     }
 }

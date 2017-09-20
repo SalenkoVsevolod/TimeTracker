@@ -1,8 +1,9 @@
 package svs.timetracker.presentation.ui.projects.editable_list;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
-import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 import svs.timetracker.core.AppBridge;
 import svs.timetracker.domain.model.Project;
@@ -11,10 +12,10 @@ import svs.timetracker.presentation.ui.base.BasePresenterImplementation;
 
 
 public class ProjectsEditableListFragmentPresenterImplementation extends BasePresenterImplementation<ProjectsEditableListView> implements ProjectsEditableListFragmentPresenter {
-    private static final String TAG = "ProjectsEditableListFra";
     private GetProjectsUseCase getProjectsUseCase;
+    private String selectedProjectName;
 
-    protected ProjectsEditableListFragmentPresenterImplementation(AppBridge appBridge) {
+    protected ProjectsEditableListFragmentPresenterImplementation(@NonNull final AppBridge appBridge) {
         super(appBridge);
         getProjectsUseCase = new GetProjectsUseCase(appBridge.getRepositoryManager().getRepository());
     }
@@ -22,6 +23,10 @@ public class ProjectsEditableListFragmentPresenterImplementation extends BasePre
     @Override
     public void bindView(ProjectsEditableListView projectsEditableListView) {
         super.bindView(projectsEditableListView);
+        selectedProjectName = appBridge.getSharedPreferences().getSelectedProject();
+        if (selectedProjectName != null) {
+            getView().setSelectedProject(selectedProjectName);
+        }
         getProjectsUseCase.execute(new ProjectsObserver(), null);
     }
 
@@ -33,42 +38,40 @@ public class ProjectsEditableListFragmentPresenterImplementation extends BasePre
 
 
     @Override
-    public void onProjectDelete(Project project) {
+    public void onProjectDelete(@NonNull final Project project) {
+        if (project.getName().equals(selectedProjectName)) {
+            selectedProjectName = null;
+            appBridge.getSharedPreferences().setSelectedProject(null);
+        }
         appBridge.getRepositoryManager().getRepository().deleteProject(project);
     }
 
     @Override
-    public void onProjectAdded(Project project) {
+    public void onProjectAdded(@NonNull final Project project) {
         appBridge.getRepositoryManager().getRepository().updateOrCreateProject(project);
     }
 
     @Override
-    public void onProjectRestore(Project project) {
+    public void onProjectRestore(@NonNull final Project project) {
         onProjectAdded(project);
     }
 
     @Override
-    public void onProjectClicked(Project project) {
-        project.setCurrentSelected(true);
-        appBridge.getRepositoryManager().getRepository().updateOrCreateProject(project);
-    }
-
-    @Override
-    public void onProjectUnselected(Project project) {
-        project.setCurrentSelected(false);
-        appBridge.getRepositoryManager().getRepository().updateProject(project);
+    public void onProjectSelected(@NonNull final Project project) {
+        selectedProjectName = project.getName();
+        appBridge.getSharedPreferences().setSelectedProject(project.getName());
     }
 
     private final class ProjectsObserver extends DisposableObserver<List<Project>> {
 
 
         @Override
-        public void onNext(@NonNull List<Project> projects) {
+        public void onNext(@NonNull final List<Project> projects) {
             getView().setProjects(projects);
         }
 
         @Override
-        public void onError(@NonNull Throwable e) {
+        public void onError(@NonNull final Throwable e) {
 
         }
 

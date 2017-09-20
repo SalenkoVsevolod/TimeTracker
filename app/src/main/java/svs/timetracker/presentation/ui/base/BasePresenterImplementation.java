@@ -1,5 +1,7 @@
 package svs.timetracker.presentation.ui.base;
 
+import android.support.annotation.NonNull;
+
 import java.lang.ref.WeakReference;
 
 import svs.timetracker.core.AppBridge;
@@ -10,7 +12,7 @@ public abstract class BasePresenterImplementation<V extends BaseView> implements
 
     private WeakReference<V> view;
 
-    protected BasePresenterImplementation(AppBridge appBridge) {
+    protected BasePresenterImplementation(@NonNull final AppBridge appBridge) {
         this.appBridge = appBridge;
     }
 
