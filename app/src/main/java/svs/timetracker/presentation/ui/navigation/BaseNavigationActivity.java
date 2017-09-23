@@ -3,6 +3,7 @@ package svs.timetracker.presentation.ui.navigation;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -92,4 +93,13 @@ public abstract class BaseNavigationActivity extends BaseActivity {
     protected abstract BaseFragment getContentFragment();
 
     protected abstract BaseNavigationFragment getNavigationFragment();
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
