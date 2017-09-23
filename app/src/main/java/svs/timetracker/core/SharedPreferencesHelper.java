@@ -13,6 +13,8 @@ public class SharedPreferencesHelper {
     private static final String MAX_HOURS_KEY = "maxHoursKey";
     private static final String EMOJI_ITEM_KEY = "emojiCharKey";
     private static final String LAST_SELECTED_PROJECT_KEY = "lastSelectedProjectKey";
+    private static final String LAST_SELECTED_HOURS_KEY = "lastSelectedHoursKey";
+    private static final String LAST_SELECTED_EMOJI_NUMBER_KEY = "lastSelectedEmojiNumberKey";
     private SharedPreferences preferences;
 
     public SharedPreferencesHelper(Context context) {
@@ -35,6 +37,23 @@ public class SharedPreferencesHelper {
         preferences.edit().putInt(MAX_EMOJI_NUMBER_KEY, maxEmojiNumber).apply();
     }
 
+    @NonNull
+    public String getEmojiItem() {
+        return preferences.getString(EMOJI_ITEM_KEY, ")");
+    }
+
+    public void setEmojiItem(@NonNull final String emojiItem) {
+        preferences.edit().putString(EMOJI_ITEM_KEY, emojiItem).apply();
+    }
+
+    public int getLastSelectedEmojiNumber() {
+        return preferences.getInt(LAST_SELECTED_EMOJI_NUMBER_KEY, 1);
+    }
+
+    public void setLastSelectedEmojiNumber(final int emojiNumber) {
+        preferences.edit().putInt(LAST_SELECTED_EMOJI_NUMBER_KEY, emojiNumber).apply();
+    }
+
     public int getMinHours() {
         return preferences.getInt(MIN_HOURS_KEY, 1);
     }
@@ -51,6 +70,14 @@ public class SharedPreferencesHelper {
         preferences.edit().putInt(MAX_HOURS_KEY, hours).apply();
     }
 
+    public int getLastSelectedHours() {
+        return preferences.getInt(LAST_SELECTED_HOURS_KEY, 8);
+    }
+
+    public void setLastSelectedHours(final int hours) {
+        preferences.edit().putInt(LAST_SELECTED_HOURS_KEY, hours).apply();
+    }
+
     @Nullable
     public String getSelectedProject() {
         return preferences.getString(LAST_SELECTED_PROJECT_KEY, null);
@@ -60,12 +87,4 @@ public class SharedPreferencesHelper {
         preferences.edit().putString(LAST_SELECTED_PROJECT_KEY, projectName).apply();
     }
 
-    @NonNull
-    public String getEmojiItem() {
-        return preferences.getString(EMOJI_ITEM_KEY, ")");
-    }
-
-    public void setEmojiItem(@NonNull final String emojiItem) {
-        preferences.edit().putString(EMOJI_ITEM_KEY, emojiItem).apply();
-    }
 }

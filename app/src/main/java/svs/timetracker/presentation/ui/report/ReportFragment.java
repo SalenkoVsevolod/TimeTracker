@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.SeekBar;
@@ -76,8 +77,18 @@ public class ReportFragment extends BaseFragment implements IReportView {
     }
 
     @Override
-    public void displayReportText(String text) {
+    public void displayReportText(@NonNull String text) {
         reportTextView.setText(text);
+    }
+
+    @Override
+    public void setEmojiNumber(int emojiNumber) {
+        emojiSeekBar.setProgress(emojiNumber);
+    }
+
+    @Override
+    public void setHours(int hours) {
+        hoursSeekBar.setProgress(hours);
     }
 
     @Override
@@ -86,7 +97,7 @@ public class ReportFragment extends BaseFragment implements IReportView {
     }
 
     @Override
-    public void copyToClipBoard(String text) {
+    public void copyToClipBoard(@NonNull String text) {
         ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(getString(R.string.time_report), text);
         clipboard.setPrimaryClip(clip);

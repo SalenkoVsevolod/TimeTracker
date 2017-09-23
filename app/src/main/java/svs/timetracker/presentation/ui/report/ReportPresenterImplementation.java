@@ -35,13 +35,17 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
         super.bindView(iReportView);
         yesterdayTwoLinesReport = new PreviousWorkDayTwoLinesReport();
         yesterdayTwoLinesReport.setCurrentDate(System.currentTimeMillis());
-        yesterdayTwoLinesReport.setGreeting(new Greeting(GREETING_TEXT, null, getEmojiString(0)));
-        yesterdayTwoLinesReport.setSpentTime(new SpentTime(appBridge.getSharedPreferences().getMinHours(), HOURS_TEXT));
+        final int lastSelectedEmojiNumber = appBridge.getSharedPreferences().getLastSelectedEmojiNumber();
+        final int lastSelectedHours = appBridge.getSharedPreferences().getLastSelectedHours();
+        yesterdayTwoLinesReport.setGreeting(new Greeting(GREETING_TEXT, null, getEmojiString(lastSelectedEmojiNumber)));
+        yesterdayTwoLinesReport.setSpentTime(new SpentTime(lastSelectedHours, HOURS_TEXT));
         reportText = yesterdayTwoLinesReport.toString();
         final String selectedProjectName = appBridge.getSharedPreferences().getSelectedProject();
         if (selectedProjectName != null) {
             getProjectByNameUseCase.execute(new ProjectObserver(), GetProjectByNameUseCase.Params.withFileName(selectedProjectName));
         }
+        getView().setEmojiNumber(lastSelectedEmojiNumber);
+        getView().setHours(lastSelectedHours);
         getView().displayReportText(reportText);
     }
 
@@ -61,6 +65,7 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
         yesterdayTwoLinesReport.setGreeting(new Greeting(GREETING_TEXT, null, getEmojiString(number)));
         reportText = yesterdayTwoLinesReport.toString();
         getView().displayReportText(reportText);
+        appBridge.getSharedPreferences().setLastSelectedEmojiNumber(number);
     }
 
     @Override
@@ -68,6 +73,7 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
         yesterdayTwoLinesReport.setSpentTime(new SpentTime(hours, HOURS_TEXT));
         reportText = yesterdayTwoLinesReport.toString();
         getView().displayReportText(reportText);
+        appBridge.getSharedPreferences().setLastSelectedHours(hours);
     }
 
     private String getEmojiString(int itemsNumber) {
