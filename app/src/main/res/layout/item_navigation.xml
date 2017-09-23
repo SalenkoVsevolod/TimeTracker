@@ -13,6 +13,5 @@
         android:text="Settings"
         android:textColor="@color/colorNavigationText"
         android:textSize="@dimen/navigation_item_text_size"
-        app:blinkDuration="3000"
-        app:neonMode="blinking"/>
+        app:neonMode="constant"/>
 </LinearLayout>
