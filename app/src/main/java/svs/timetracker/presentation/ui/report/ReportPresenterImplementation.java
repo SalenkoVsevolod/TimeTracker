@@ -9,7 +9,7 @@ import svs.timetracker.core.AppBridge;
 import svs.timetracker.domain.model.Greeting;
 import svs.timetracker.domain.model.PreviousWorkDayTwoLinesReport;
 import svs.timetracker.domain.model.Project;
-import svs.timetracker.domain.model.SpentTime;
+import svs.timetracker.domain.model.RussianEndingSpentTime;
 import svs.timetracker.domain.use_case.GetProjectByNameUseCase;
 import svs.timetracker.presentation.ui.base.BasePresenterImplementation;
 
@@ -38,7 +38,7 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
         final int lastSelectedEmojiNumber = appBridge.getSharedPreferences().getLastSelectedEmojiNumber();
         final int lastSelectedHours = appBridge.getSharedPreferences().getLastSelectedHours();
         yesterdayTwoLinesReport.setGreeting(new Greeting(GREETING_TEXT, null, getEmojiString(lastSelectedEmojiNumber)));
-        yesterdayTwoLinesReport.setSpentTime(new SpentTime(lastSelectedHours, HOURS_TEXT));
+        yesterdayTwoLinesReport.setSpentTime(new RussianEndingSpentTime(lastSelectedHours));
         reportText = yesterdayTwoLinesReport.toString();
         final String selectedProjectName = appBridge.getSharedPreferences().getSelectedProject();
         if (selectedProjectName != null) {
@@ -70,7 +70,7 @@ public class ReportPresenterImplementation extends BasePresenterImplementation<I
 
     @Override
     public void onHoursNumberChanged(final int hours) {
-        yesterdayTwoLinesReport.setSpentTime(new SpentTime(hours, HOURS_TEXT));
+        yesterdayTwoLinesReport.setSpentTime(new RussianEndingSpentTime(hours));
         reportText = yesterdayTwoLinesReport.toString();
         getView().displayReportText(reportText);
         appBridge.getSharedPreferences().setLastSelectedHours(hours);

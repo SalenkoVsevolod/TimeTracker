@@ -1,9 +1,9 @@
 package svs.timetracker.domain.model;
 
 public class SpentTime {
+    protected String hoursText;
     private long spentMillis;
     private boolean useHoursWithMinutes;
-    private String hoursText;
     private String minutesText;
 
     public SpentTime(long spentMillis, String hoursText) {
